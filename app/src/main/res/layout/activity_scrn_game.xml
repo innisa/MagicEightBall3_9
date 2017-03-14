@@ -8,23 +8,21 @@
     tools:context="com.example.innisa.magiceightball3_9.scrnGame">
 
     <ImageView
-        android:layout_width="370dp"
+        android:layout_width="0dp"
         android:layout_height="504dp"
         app:srcCompat="@mipmap/magic8ball"
-        tools:layout_editor_absoluteY="3dp"
-        tools:layout_editor_absoluteX="6dp"
         android:id="@+id/imgBall"
 
-        app:layout_constraintLeft_toLeftOf="@+id/activity_scrn_game"
-        android:layout_marginStart="16dp"
-        tools:layout_constraintLeft_creator="0"
-        app:layout_constraintTop_toTopOf="@+id/activity_scrn_game"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="6dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp"
-        tools:layout_constraintTop_creator="0"
-        app:layout_constraintRight_toRightOf="@+id/activity_scrn_game"
-        android:layout_marginEnd="16dp"
-        tools:layout_constraintRight_creator="0"
-        />
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginEnd="6dp"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp" />
 
     <TextView
         android:id="@+id/txtAnswer"
@@ -32,16 +30,13 @@
         android:layout_height="wrap_content"
         android:text="Ask Again"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Inverse"
-        tools:layout_editor_absoluteX="164dp"
-        tools:layout_editor_absoluteY="252dp"
-        app:layout_constraintLeft_toLeftOf="@+id/activity_scrn_game"
-        android:layout_marginStart="16dp"
-        tools:layout_constraintLeft_creator="0"
-        
-        android:layout_marginTop="16dp"
-        tools:layout_constraintTop_creator="0"
-        app:layout_constraintRight_toRightOf="@+id/activity_scrn_game"
-        android:layout_marginEnd="16dp"
-        tools:layout_constraintRight_creator="0"
-        />
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:layout_constraintLeft_creator="1"
+
+        tools:layout_constraintTop_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
