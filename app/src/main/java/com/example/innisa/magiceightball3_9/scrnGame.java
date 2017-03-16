@@ -1,5 +1,6 @@
 package com.example.innisa.magiceightball3_9;
 
+import android.graphics.Path;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -10,7 +11,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 //later create a splash screen
 //later read in a document
 //later use accelerometer
@@ -23,6 +31,11 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
     private SensorManager mSensorMgr;
     public TextView txtAnswer;
 
+    //Todo test app
+    //todo share
+    //// TODO: fix file path
+    //todo splash screen
+    //todo maybe show image of back side only when shaken
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +44,10 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
 
         //create an array list ---later read in a document with more answers
         final ArrayList<String> lstAnswer= new ArrayList<>();
-        lstAnswer.add("No");
-        lstAnswer.add("Yes");
-        lstAnswer.add("Maybe");
+        addToArrayList(lstAnswer);
+        //lstAnswer.add("No");
+        //lstAnswer.add("Yes");
+       // lstAnswer.add("Maybe");
 
         //create/ set the id of imgBall and txtAnswer
         final ImageView imgBall= (ImageView) findViewById(R.id.imgBall);
@@ -58,6 +72,41 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
 
     }
 
+    public void addToArrayList(ArrayList<String> lst){
+        //String filePath =  Path.Combine(Path.GetTempPath(),"ConnectFour.txt");
+        //String filePath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\ConnectFour.txt";
+
+//        Scanner s = new Scanner(new File("filepath"));
+//        while (s.hasNextLine()){
+//            lst.add(s.next());
+//        }
+//        s.close();
+
+        BufferedReader in = null;
+        try {
+            //TODO fix file path
+            in = new BufferedReader(new FileReader("C:/Users/kinnis/Documents/ALICE_DOCUMENTS/MagicEightBall3_9/answers.txt"));
+            String str;
+            while ((str = in.readLine()) != null) {
+                lst.add(str);
+            }
+        } catch (FileNotFoundException e) {
+            lst.add("No");
+            lst.add("Maybe");
+            lst.add("Yes");
+            lst.add("It is decisively so");
+            lst.add("Probably");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try{in.close();}
+                catch(IOException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
 // Stop listening for shakes
           //  mSensorMgr.unregisterListener(this);
