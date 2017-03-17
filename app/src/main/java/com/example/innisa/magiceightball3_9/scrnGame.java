@@ -22,6 +22,7 @@ import java.util.Scanner;
 //later create a splash screen
 //later read in a document
 //later use accelerometer
+
 public class scrnGame extends AppCompatActivity implements SensorEventListener {
 
     // variables for shake detection
@@ -30,28 +31,46 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
     private long mLastShakeTime;
     private SensorManager mSensorMgr;
     public TextView txtAnswer;
-
+    final ArrayList<String> lstAnswer= new ArrayList<>();
     //Todo test app
     //todo share
-    //// TODO: fix file path
-    //todo splash screen
-    //todo maybe show image of back side only when shaken
+    /// //todo put stuff on git
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        Bundle extras= getIntent().getExtras();
+        String value="";
+        if(extras!=null)
+            value= extras.getString("key");
+        else
+            value= "Blue and White";
+        //set theme based on previous screen (made these themes in style.xml)
+        switch(value){
+            case "Dark": setTheme(R.style.DarkTheme);
+                break;
+            case "Light": setTheme(R.style.LightTheme);
+                break;
+            case "Blue and White": setTheme(R.style.AppTheme);
+                break;
+            default: setTheme(R.style.AppTheme);
+                break;
+        }
+
         setContentView(R.layout.activity_scrn_game);
 
-        //create an array list ---later read in a document with more answers
-        final ArrayList<String> lstAnswer= new ArrayList<>();
+
+        //set txtAnswer
+        txtAnswer= (TextView) findViewById(R.id.txtAnswer);
+        //txtAnswer.setText(value);
+        //add to the array list
         addToArrayList(lstAnswer);
-        //lstAnswer.add("No");
-        //lstAnswer.add("Yes");
-       // lstAnswer.add("Maybe");
 
         //create/ set the id of imgBall and txtAnswer
-        final ImageView imgBall= (ImageView) findViewById(R.id.imgBall);
-        txtAnswer= (TextView) findViewById(R.id.txtAnswer);
+        //final ImageView imgBall= (ImageView) findViewById(R.id.imgBall);
+
 
         // Get a sensor manager to listen for shakes
         mSensorMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -62,13 +81,6 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
         if (accelerometer != null) {
             mSensorMgr.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         }
-        //on click listener for imgBall-----eventually use the accelerometer
-        imgBall.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                int randNum= (int)(Math.random()*lstAnswer.size()); //check could be infinite or null
-                txtAnswer.setText(lstAnswer.get(randNum));
-            }
-        });
 
     }
 
@@ -76,20 +88,15 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
         //String filePath =  Path.Combine(Path.GetTempPath(),"ConnectFour.txt");
         //String filePath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\ConnectFour.txt";
 
-//        Scanner s = new Scanner(new File("filepath"));
-//        while (s.hasNextLine()){
-//            lst.add(s.next());
-//        }
-//        s.close();
-
+        //try to read in a rile and put each line in an array list
         BufferedReader in = null;
         try {
-            //TODO fix file path
-            in = new BufferedReader(new FileReader("C:/Users/kinnis/Documents/ALICE_DOCUMENTS/MagicEightBall3_9/answers.txt"));
+            in = new BufferedReader(new FileReader("MagicEightBall3_9/answers.txt"));
             String str;
             while ((str = in.readLine()) != null) {
                 lst.add(str);
             }
+            //if the file not found, put those words in the array list
         } catch (FileNotFoundException e) {
             lst.add("No");
             lst.add("Maybe");
@@ -108,9 +115,7 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
         }
     }
 
-// Stop listening for shakes
-          //  mSensorMgr.unregisterListener(this);
-//DO I NEED THIS IF SO WHEERE
+
 
 
 
@@ -130,11 +135,11 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
                         Math.pow(z, 2)) - SensorManager.GRAVITY_EARTH;
                 //Log.d(APP_NAME, "Acceleration is " + acceleration + "m/s^2");
 
+                //if there is detected shaking display a random answer
                 if (acceleration > SHAKE_THRESHOLD) {
                     mLastShakeTime = curTime;
-                   // Log.d(APP_NAME, "Shake, Rattle, and Roll");
-                    String display= "DID THE ACCELEROMETER DETECT SHAKING?";
-                    txtAnswer.setText(display);
+                    int randNum= (int)(Math.random()*lstAnswer.size());
+                    txtAnswer.setText(lstAnswer.get(randNum));
                 }
             }
         }

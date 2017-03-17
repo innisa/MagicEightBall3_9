@@ -21,7 +21,7 @@ public class scrnSplash extends AppCompatActivity {
                     public void run() {
                        // startActivity(new Intent(this,))
                         //startActivity(new Intent(this, scrnGame.class));
-                        Intent intent = new Intent(getApplicationContext(),scrnGame.class);
+                        Intent intent = new Intent(getApplicationContext(),scrnChoose.class);
                         startActivity(intent);
 
                     }
