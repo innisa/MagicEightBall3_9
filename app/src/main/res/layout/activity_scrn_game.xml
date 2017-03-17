@@ -8,8 +8,8 @@
     tools:context="com.example.innisa.magiceightball3_9.scrnGame">
 
     <ImageView
-        android:layout_width="0dp"
-        android:layout_height="504dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         app:srcCompat="@mipmap/magic8ball"
         android:id="@+id/imgBall"
 
