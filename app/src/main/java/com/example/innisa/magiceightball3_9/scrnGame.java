@@ -34,7 +34,6 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
     final ArrayList<String> lstAnswer= new ArrayList<>();
     //Todo test app
     //todo share
-    // TODO: fix file path
     /// //todo put stuff on git
 
     @Override
