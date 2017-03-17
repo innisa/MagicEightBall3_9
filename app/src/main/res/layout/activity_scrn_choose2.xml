@@ -32,7 +32,7 @@
             android:id="@+id/btnLight"
             android:layout_width="match_parent"
             android:layout_height="90dp"
-            android:text="Light "
+            android:text="Light"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
         <TextView
