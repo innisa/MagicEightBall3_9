@@ -4,7 +4,7 @@ package com.example.innisa.magiceightball3_9;
  * Created by innisa on 3/17/2017.
  */
 
-
+//class from mrs kelly /andrew to read in a file
 import android.app.Activity;
         import android.content.Context;
         import android.content.res.AssetManager;
@@ -75,12 +75,12 @@ public class Dictionary extends Activity {
     }
     private void manuallyFillWords(){
         myWords.add("Yes");
-        //myWords.add("No");
-//        myWords.add("Ask again later");
-//        myWords.add("Seems likely");
-//        myWords.add("Probably");
-//        myWords.add("It is certain");
-//        myWords.add("It is decidedly so");
-//        myWords.add("Without a doubt");
+        myWords.add("No");
+          myWords.add("Ask again later");
+          myWords.add("Seems likely");
+          myWords.add("Probably");
+          myWords.add("It is certain");
+          myWords.add("It is decidedly so");
+          myWords.add("Without a doubt");
     }
 }
