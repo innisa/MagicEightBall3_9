@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//later create a splash screen
+//later read in a document
+//later use accelerometer
 
 public class scrnGame extends AppCompatActivity implements SensorEventListener {
 
@@ -29,9 +32,10 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
     private SensorManager mSensorMgr;
     public TextView txtAnswer;
     final ArrayList<String> lstAnswer= new ArrayList<>();
-
-    // TODO: hope it works!
-    /// //todo put stuff on git and share
+    //Todo test app
+    //todo share
+    // TODO: fix file path
+    /// //todo put stuff on git
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,7 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
 
         //set txtAnswer
         txtAnswer= (TextView) findViewById(R.id.txtAnswer);
-
+        //txtAnswer.setText(value);
         //add to the array list
         addToArrayList(lstAnswer);
 
@@ -88,7 +92,6 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
         //try to read in a rile and put each line in an array list
         BufferedReader in = null;
         try {
-
             in = new BufferedReader(new FileReader("MagicEightBall3_9/answers.txt"));
             String str;
             while ((str = in.readLine()) != null) {
@@ -131,6 +134,7 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
                 double acceleration = Math.sqrt(Math.pow(x, 2) +
                         Math.pow(y, 2) +
                         Math.pow(z, 2)) - SensorManager.GRAVITY_EARTH;
+                //Log.d(APP_NAME, "Acceleration is " + acceleration + "m/s^2");
 
                 //if there is detected shaking display a random answer
                 if (acceleration > SHAKE_THRESHOLD) {
