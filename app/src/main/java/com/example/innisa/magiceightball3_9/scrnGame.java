@@ -32,6 +32,7 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
     private SensorManager mSensorMgr;
     public TextView txtAnswer;
     final ArrayList<String> lstAnswer= new ArrayList<>();
+    private static Dictionary myDictionary;
     //Todo test app
     //todo share
     /// //todo put stuff on git
@@ -87,9 +88,12 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
     public void addToArrayList(ArrayList<String> lst){
         //String filePath =  Path.Combine(Path.GetTempPath(),"ConnectFour.txt");
         //String filePath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\ConnectFour.txt";
-
+        myDictionary = new Dictionary(getApplicationContext(),"answers.txt");
+        lst = myDictionary.getMyWords();
+        //WHEN SHAKE=STOP
+        //lst = createWords(words);
         //try to read in a rile and put each line in an array list
-        BufferedReader in = null;
+        /*BufferedReader in = null;
         try {
             in = new BufferedReader(new FileReader("MagicEightBall3_9/answers.txt"));
             String str;
@@ -111,8 +115,8 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
                 catch(IOException e){
                     e.printStackTrace();
                 }
-            }
-        }
+            }*/
+       // }
     }
 
 
