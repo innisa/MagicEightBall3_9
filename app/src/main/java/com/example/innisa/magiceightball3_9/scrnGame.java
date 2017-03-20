@@ -19,9 +19,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//later create a splash screen
-//later read in a document
-//later use accelerometer
 
 public class scrnGame extends AppCompatActivity implements SensorEventListener {
 
@@ -30,26 +27,52 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
     private static final int MIN_TIME_BETWEEN_SHAKES_MILLISECS = 1000;
     private long mLastShakeTime;
     private SensorManager mSensorMgr;
+
     public TextView txtAnswer;
     public ArrayList<String> lstAnswer= new ArrayList<>();
     private static Dictionary myDictionary;
-    //Todo test app
-    //todo share
-    /// //todo put stuff on git
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        //get the info from the previous screen--use that info to set the theme
         Bundle extras= getIntent().getExtras();
         String value="";
         if(extras!=null)
             value= extras.getString("key");
         else
             value= "Blue and White";
+
+        makeTheme(value);
+
+
+        setContentView(R.layout.activity_scrn_game);
+
+
+        //set txtAnswer
+        txtAnswer= (TextView) findViewById(R.id.txtAnswer);
+
+        //add to the array list
+        addToArrayList(lstAnswer);
+
+
+        // Get a sensor manager to listen for shakes
+        mSensorMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        // Listen for shakes
+        Sensor accelerometer = mSensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        if (accelerometer != null) {
+            mSensorMgr.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
+    }
+
+    public void makeTheme(String s){
         //set theme based on previous screen (made these themes in style.xml)
-        switch(value){
+        switch(s){
             case "Dark": setTheme(R.style.DarkTheme);
                 break;
             case "Light": setTheme(R.style.LightTheme);
@@ -59,69 +82,12 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
             default: setTheme(R.style.AppTheme);
                 break;
         }
-
-        setContentView(R.layout.activity_scrn_game);
-
-
-        //set txtAnswer
-        txtAnswer= (TextView) findViewById(R.id.txtAnswer);
-        //txtAnswer.setText(value);
-        //add to the array list
-        addToArrayList(lstAnswer);
-
-        //create/ set the id of imgBall and txtAnswer
-        //final ImageView imgBall= (ImageView) findViewById(R.id.imgBall);
-
-
-        // Get a sensor manager to listen for shakes
-        mSensorMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
-
-        // Listen for shakes
-        Sensor accelerometer = mSensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-                //ATYPE_ACCELEROMETER);
-        if (accelerometer != null) {
-            mSensorMgr.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        }
-
     }
-
     public void addToArrayList(ArrayList<String> lst){
-        //String filePath =  Path.Combine(Path.GetTempPath(),"ConnectFour.txt");
-        //String filePath = System.IO.Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "\\ConnectFour.txt";
         myDictionary = new Dictionary(getApplicationContext(),"answers.txt");
        // ArrayList<String> tempArray= myDictionary.getMyWords();
          lstAnswer=myDictionary.getMyWords();
-        //WHEN SHAKE=STOP
-        //lst = createWords(words);
-        //try to read in a rile and put each line in an array list
-        /*BufferedReader in = null;
-        try {
-            in = new BufferedReader(new FileReader("MagicEightBall3_9/answers.txt"));
-            String str;
-            while ((str = in.readLine()) != null) {
-                lst.add(str);
-            }
-            //if the file not found, put those words in the array list
-        } catch (FileNotFoundException e) {
-            lst.add("No");
-            lst.add("Maybe");
-            lst.add("Yes");
-            lst.add("It is decisively so");
-            lst.add("Probably");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (in != null) {
-                try{in.close();}
-                catch(IOException e){
-                    e.printStackTrace();
-                }
-            }*/
-       // }
     }
-
-
-
 
 
     //sensorEventLister methods to override
@@ -138,7 +104,7 @@ public class scrnGame extends AppCompatActivity implements SensorEventListener {
                 double acceleration = Math.sqrt(Math.pow(x, 2) +
                         Math.pow(y, 2) +
                         Math.pow(z, 2)) - SensorManager.GRAVITY_EARTH;
-                //Log.d(APP_NAME, "Acceleration is " + acceleration + "m/s^2");
+                //Log.d(APP_NAME, "Acceleration is " + acceleration + "m/s^2");---probably useful if i use the accelerometer again
 
                 //if there is detected shaking display a random answer
                 if (acceleration > SHAKE_THRESHOLD) {

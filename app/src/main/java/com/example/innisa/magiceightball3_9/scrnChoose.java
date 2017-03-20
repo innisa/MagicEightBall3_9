@@ -37,6 +37,7 @@ public class scrnChoose extends AppCompatActivity {
 
     }
 
+    //when each button is clicked send the text of that button to scrngame and open it
     public void btnClickListener(Button b){
         Intent i=new Intent(getApplicationContext(),scrnGame.class);
         i.putExtra("key",b.getText());
